@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body style="background-color: #eee;">
+    <div class="py-4 bg-opacity-25 bg-secondary container-fluid">
+        <div class="container">
+            <h1 class="display-4 fw-normal">CRUD con Firebase</h1>
+        </div>
+    </div>
+    <div id="error" class="mt-5"></div>
+    <div class="container">
+        <form class="mt-5 px-2 text-start row g-2" id="formReg">
+             <input id="id" type="hidden"> <!-- Se recibe de firebase -->
+            <div class="mb-3 mb-lg-0 col-12 col-md-2">
+                <label for="cod" class="form-label fw-bold">CÓDIGO</label>
+                <input type="text" class="form-control shadow-none" readonly id="cod" value="" disabled>
+            </div>
+            <div class="mb-3 mb-lg-0 col-12 col-md-5">
+                <label for="cod" class="form-label fw-bold">DESCRIPCIÓN</label>
+                <input type="text" class="form-control shadow-none" id="descripcion" placeholder="Nombre del Producto" minlength="2" maxlength="30">
+                <div class="invalid-feedback">Ingrese una descripción válida.</div>
+            </div>
+            <div class="mb-3 mb-lg-0 col-6 col-md-2">
+                <label for="cod" class="form-label fw-bold">CANTIDAD</label>
+                <input type="text" class="form-control shadow-none" id="cantidad" placeholder="100" minlength="1" maxlength="3">
+                <div class="invalid-feedback">Ingrese una cantidad válida entre 1 y 100.</div>
+            </div>
+            <div class="mb-3 mb-lg-0 col-6 col-md-2">
+                <label for="cod" class="form-label fw-bold">PRECIO</label>
+                <input type="text" class="form-control shadow-none" id="precio" placeholder="35" minlength="1" maxlength="6">
+                <div class="invalid-feedback">Ingrese una cantidad válida entre 1 y 999999.</div>
+            </div>
+            <div class="col-md-1">
+                <div class="btn-nuevo">
+                    <label for="btnAdd" class="form-label fw-bold d-none d-md-block">AGREGAR</label>
+                    <button type="button" id="btnAdd"class="btn btn-primary d-block w-100" disabled title="Agregar"><i class="bi bi-plus-circle-fill h-100" ></i></button>
+                </div>
+                <div class="btn-edit" style="display: none;">
+                    <label for="btnEditar" class="form-label fw-bold d-none d-md-block">GUARDAR</label>
+                    <button type="button" id="btnEditar"class="btn btn-success d-block w-100" title="Guardar"><i class="bi bi-check-circle-fill"></i></button>
+                </div>
+            </div>
+        </form>
+        <div class="alert alert-primary text-center fs-5 mt-5 info" role="alert" style="display: none;">
+            <div class="pulse mb-2">
+                <i class="bi bi-arrow-up-circle-fill display-6"></i>
+            </div>
+            <p>Comienza agregando un producto.</p>
+        </div>
+        <div id="loading" class="text-center mt-4" style="display: none;">
+            <img src="./assets/loading.gif" alt="loading" width="45px" height="45px">
+        </div>
+        <div class="my-5" id="contenido" style="display: none;">
+            <table class="table table-hover table-responsive table-bordered bg-light" id="tablaProductos">
+                <thead class="table-dark border-light">
+                    <tr>
+                        <th scope="col" class="px-md-3">#CODIGO</th>
+                        <th scope="col" class="px-md-3">DESCRIPCIÓN</th>
+                        <th scope="col" class="px-md-3">CANTIDAD</th>
+                        <th scope="col" class="px-md-3">PRECIO</th>
+                        <th scope="col" class="px-md-3 text-center">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyProductos"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+    <!-- jquery -->
+    <script src="./js/jquery.js"></script>
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+
+    <script src="./js/main.js" type="module"></script>
+</body>
+</html>
